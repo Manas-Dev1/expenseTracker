@@ -3,7 +3,6 @@ import {
   Pie,
   Cell,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -43,57 +42,54 @@ function ExpenseCharts({ transactions = [] }) {
   }));
 
   return (
-    <div className="w-full h-87.5">
+    <section className="w-full">
       <h2 className="text-xl font-semibold mb-4">Expenses by Category</h2>
       {data.length === 0 ? (
         <p className="text-gray-500">Add an expense to see the chart.</p>
       ) : (
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label={(props) => (
-                <text
-                  {...props}
-                  fill={COLORS[props.index % COLORS.length]}
-                >
-                  {props.value}
-                </text>
-              )}
-            >
-              {data.map((entry) => (
-                <Cell key={entry.name} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend
-              content={({ payload = [] }) => (
-                <ul className="flex flex-wrap justify-center gap-4">
-                  {payload.map((entry) => (
-                    <li
-                      key={entry.value}
-                      className="flex items-center gap-2 text-gray-500"
+        <div className="flex flex-col items-center gap-4 md:flex-row md:items-center">
+          <div className="h-[350px] w-full min-w-0 md:w-2/3">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={data}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  label={(props) => (
+                    <text
+                      {...props}
+                      fill={COLORS[props.index % COLORS.length]}
                     >
-                      <span
-                        aria-hidden="true"
-                        className="inline-block h-3 w-3"
-                        style={{ backgroundColor: entry.color }}
-                      />
-                      {entry.value}
-                    </li>
+                      {props.value}
+                    </text>
+                  )}
+                >
+                  {data.map((entry) => (
+                    <Cell key={entry.name} fill={entry.color} />
                   ))}
-                </ul>
-              )}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <ul className="flex w-full flex-wrap justify-center gap-x-4 gap-y-2 text-gray-500 md:w-1/3 md:flex-col md:items-start md:gap-3">
+            {data.map((entry) => (
+              <li key={entry.name} className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-3 w-3 shrink-0"
+                  style={{ backgroundColor: entry.color }}
+                />
+                {entry.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </div>
+    </section>
   );
 }
 
