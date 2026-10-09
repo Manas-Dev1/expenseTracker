@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import {
   ExpenseCharts,
   ExpenseView,
@@ -25,7 +24,7 @@ function App() {
     );
   }
   return (
-    <div className="mx-auto w-11/12 max-w-5xl p-4 flex flex-col gap-4 justify-center items-center">
+    <main className="app-shell">
       <Header />
       <Summary transactions={transactions} />
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -44,8 +43,7 @@ function App() {
       {activeTab === "add-transaction" && (
         <TransactionForm setTransactions={setTransactions} />
       )}
-      {console.log(transactions)}
-    </div>
+    </main>
   );
 }
 

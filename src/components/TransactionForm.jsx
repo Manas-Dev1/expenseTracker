@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../app.css";
 function TransactionForm({ setTransactions }) {
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
@@ -30,10 +29,10 @@ function TransactionForm({ setTransactions }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-lg ring ring-gray-300 w-11/12 max-w-5xl shadow-xl mb-4 flex flex-col gap-4 justify-center items-center"
+      className="bg-white p-4 sm:p-6 rounded-lg ring ring-gray-300 w-full shadow-xl flex flex-col gap-4 items-stretch"
     >
       <div className="text-2xl font-bold">Transaction Form</div>
-      <div className="flex gap-3 mt-2 items-center justify-center">
+      <fieldset className="flex flex-wrap gap-3 mt-2 items-center justify-center border-0 p-0">
         <label>Type:</label>
         <input
           type="radio"
@@ -53,7 +52,7 @@ function TransactionForm({ setTransactions }) {
           onChange={() => setType("income")}
         />
         <label htmlFor="income">Income</label>
-      </div>
+      </fieldset>
       <div className="flex flex-col gap-3 w-full">
         <div className="grid grid-cols-1 gap-2 items-baseline mb-2">
           <label htmlFor="category">Category :</label>
@@ -62,7 +61,8 @@ function TransactionForm({ setTransactions }) {
             id="category"
             name="category"
             value={category}
-            className="ring ring-gray-300 rounded-lg py-1 px-2.5"
+            required
+            className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
             onChange={(e) => setCategory(e.target.value)}
           />
         </div>
@@ -77,7 +77,7 @@ function TransactionForm({ setTransactions }) {
             min="0.01"
             step="0.01"
             onChange={(e) => setAmount(e.target.value)}
-            className="ring ring-gray-300 rounded-lg py-1 px-2.5"
+            className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
           />
         </div>
         <div className="grid grid-cols-1 gap-2 items-baseline mb-2">
@@ -88,7 +88,7 @@ function TransactionForm({ setTransactions }) {
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="ring ring-gray-300 rounded-lg py-1 px-2.5"
+            className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
           />
         </div>
         <div className="grid grid-cols-1 gap-2 items-baseline mb-2">
@@ -99,12 +99,12 @@ function TransactionForm({ setTransactions }) {
             name="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="ring ring-gray-300 rounded-lg py-1 px-2.5"
+            className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
           />
         </div>
       </div>
-      <div>
-        <button type="submit">
+      <div className="flex justify-end">
+        <button className="w-full sm:w-auto" type="submit">
           Add Transaction
         </button>
       </div>
