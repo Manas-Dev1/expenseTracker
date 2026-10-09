@@ -38,7 +38,7 @@ function ExpenseCharts({ transactions = [] }) {
   );
 
   return (
-    <section className="w-full min-w-0">
+    <section className="chart-panel w-full min-w-0">
       <h2 className="text-xl font-semibold mb-4">Expenses by Category</h2>
       {data.length === 0 ? (
         <p className="text-gray-500">Add an expense to see the chart.</p>
