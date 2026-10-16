@@ -17,12 +17,25 @@ function TransactionForm({ setTransactions }) {
   const [date, setDate] = useState(getTodayString);
   function handleSubmit(event) {
     event.preventDefault();
+    const trimmedCategory = category.trim();
+    const parsedAmount = Number(amount);
+
+    if (
+      trimmedCategory.length < 1 ||
+      trimmedCategory.length > 32 ||
+      !Number.isFinite(parsedAmount) ||
+      parsedAmount < 1 ||
+      description.length > 64
+    ) {
+      return;
+    }
+
     const newTransaction = {
       id: crypto.randomUUID(),
       type,
-      category,
-      amount: Number(amount),
-      description: description.trim() || category.trim(),
+      category: trimmedCategory,
+      amount: parsedAmount,
+      description: description.trim() || trimmedCategory,
       date: date || getTodayString(),
     };
     setTransactions((prevTransactions) => [
@@ -72,6 +85,8 @@ function TransactionForm({ setTransactions }) {
             name="category"
             value={category}
             required
+            minLength={1}
+            maxLength={32}
             className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
             onChange={(e) => setCategory(e.target.value)}
           />
@@ -84,7 +99,7 @@ function TransactionForm({ setTransactions }) {
             name="amount"
             value={amount}
             required
-            min="0.01"
+            min="1"
             step="0.01"
             onChange={(e) => setAmount(e.target.value)}
             className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
@@ -97,6 +112,7 @@ function TransactionForm({ setTransactions }) {
             id="description"
             name="description"
             value={description}
+            maxLength={64}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full ring ring-gray-300 rounded-lg py-2 px-2.5"
           />
