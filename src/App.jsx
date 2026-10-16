@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   ExpenseCharts,
+  IncomeCharts,
   ExpenseView,
   Incomeview,
   Tabs,
@@ -29,16 +30,22 @@ function App() {
       <Summary transactions={transactions} />
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === "expenses" && (
-        <>
+        <div className="expense-dashboard">
           <ExpenseCharts transactions={transactions} />
           <ExpenseView
             transactions={transactions}
             handleDelete={handleDelete}
           />
-        </>
+        </div>
       )}
       {activeTab === "income" && (
-        <Incomeview transactions={transactions} handleDelete={handleDelete} />
+        <div className="expense-dashboard">
+          <IncomeCharts transactions={transactions} />
+          <Incomeview
+            transactions={transactions}
+            handleDelete={handleDelete}
+          />
+        </div>
       )}
       {activeTab === "add-transaction" && (
         <TransactionForm setTransactions={setTransactions} />

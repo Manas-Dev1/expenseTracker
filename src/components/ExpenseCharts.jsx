@@ -43,8 +43,8 @@ function ExpenseCharts({ transactions = [] }) {
       {data.length === 0 ? (
         <p className="text-gray-500">Add an expense to see the chart.</p>
       ) : (
-        <div className="flex min-w-0 flex-col items-center gap-2 sm:gap-4 md:flex-row md:items-center">
-          <div className="h-64 sm:h-80 w-full min-w-0 md:w-2/3">
+        <div className="flex min-w-0 flex-col items-center gap-2 sm:gap-4">
+          <div className="h-56 w-full min-w-0 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -53,7 +53,7 @@ function ExpenseCharts({ transactions = [] }) {
                   nameKey="name"
                   cx="50%"
                   cy="50%"
-                  outerRadius="75%"
+                  outerRadius="78%"
                 >
                   {data.map((entry) => (
                     <Cell key={entry.name} fill={entry.color} />
@@ -63,7 +63,7 @@ function ExpenseCharts({ transactions = [] }) {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <ul className="flex w-full min-w-0 list-none flex-wrap justify-center gap-x-4 gap-y-2 p-0 text-sm text-gray-600 md:w-1/3 md:flex-col md:items-start md:gap-3">
+          <ul className="flex w-full min-w-0 list-none flex-wrap justify-center gap-x-4 gap-y-2 p-0 text-sm text-gray-600">
             {data.map((entry) => (
               <li key={entry.name} className="flex items-center gap-2">
                 <span

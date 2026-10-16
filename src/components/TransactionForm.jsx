@@ -1,10 +1,20 @@
 import { useState } from "react";
+
+function getTodayString() {
+  const today = new Date();
+  return [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
 function TransactionForm({ setTransactions }) {
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getTodayString);
   function handleSubmit(event) {
     event.preventDefault();
     const newTransaction = {
@@ -12,8 +22,8 @@ function TransactionForm({ setTransactions }) {
       type,
       category,
       amount: Number(amount),
-      description,
-      date,
+      description: description.trim() || category.trim(),
+      date: date || getTodayString(),
     };
     setTransactions((prevTransactions) => [
       ...prevTransactions,
@@ -23,13 +33,13 @@ function TransactionForm({ setTransactions }) {
     setCategory("");
     setAmount("");
     setDescription("");
-    setDate("");
+    setDate(getTodayString());
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-4 sm:p-6 rounded-lg ring ring-gray-300 w-full shadow-xl flex flex-col gap-4 items-stretch"
+      className="bg-white p-4 sm:p-6 rounded-lg ring ring-gray-300 w-full shadow-xl flex flex-col gap-4 items-stretch max-w-4xl self-center"
     >
       <div className="text-2xl font-bold">Transaction Form</div>
       <fieldset className="flex flex-wrap gap-3 mt-2 items-center justify-center border-0 p-0">
@@ -103,8 +113,11 @@ function TransactionForm({ setTransactions }) {
           />
         </div>
       </div>
-      <div className="flex justify-end">
-        <button className="w-full sm:w-auto" type="submit">
+      <div className="flex ">
+        <button
+          className="w-full sm:w-1/2 sm:mx-auto ring ring-gray-300"
+          type="submit"
+        >
           Add Transaction
         </button>
       </div>
